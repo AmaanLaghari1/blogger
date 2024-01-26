@@ -1,0 +1,33 @@
+#Home {
+    height: 70vh;
+    background: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .6)), url("../images/bg.jpg");
+}
+
+#About {
+    min-height: 70vh;
+}
+
+#Signup {
+    min-height: 74vh;
+    background: linear-gradient(rgba(0, 0, 0, .8), rgba(0, 0, 0, .8)), url("../images/bg.jpg");
+}
+
+#Dashboard {
+    min-height: 74vh;
+}
+
+.blog-img {
+    height: 32rem;
+}
+
+@media (max-width: 900px) {
+    .blog-img {
+        height: 26rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .blog-img {
+        height: 22rem;
+    }
+}
