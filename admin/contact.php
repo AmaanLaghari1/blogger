@@ -14,25 +14,18 @@ require_once "./header.php";
 
 <div id="Dashboard" class="container-fluid">
 
-    <h1 class="my-3">All Users</h1>
-    <a href="add-user.php" class="text-decoration-none">
-        <button class="btn btn-outline-primary">Create New User</button>
-    </a>
+    <h1 class="my-3">Contacts</h1>
 
     <table class="table table-striped my-2">
         <tr>
             <th>ID</th>
-            <th>FIRSTNAME</th>
-            <th>LASTNAME</th>
             <th>EMAIL</th>
-            <th>PHONE</th>
-            <th>ROLE</th>
-            <th>PROFILEPIC</th>
+            <th>MESSAGE</th>
             <th class="col-1">ACTIONS</th>
         </tr>
 
         <?php
-            $sql = "SELECT * FROM users";
+            $sql = "SELECT * FROM contact";
 
             $result = $con->query($sql);
 
@@ -42,12 +35,8 @@ require_once "./header.php";
         ?>
             <tr>
                 <td><?= $row->id ?></td>
-                <td><?= $row->firstname ?></td>
-                <td><?= $row->lastname ?></td>
                 <td><?= $row->email ?></td>
-                <td><?= $row->phone ?></td>
-                <td><?= $row->role ?></td>
-                <td><?= $row->uimage ?></td>
+                <td><?= $row->message ?></td>
             
                 
             <td>
@@ -77,8 +66,8 @@ require_once "./header.php";
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                    <form action="./delete-user.php" method="post">
-                        <input type="hidden" name="user-id" value="<?= $row->id ?>" />
+                    <form action="./delete-contact.php" method="post">
+                        <input type="hidden" name="contact-id" value="<?= $row->id ?>" />
                         <button class="btn btn-danger btn-sm" type="submit">Confirm</button>
                     </form>
                 </div>
@@ -92,7 +81,7 @@ require_once "./header.php";
             else {
         ?>
             <tr>
-                <th class="text-center" colspan="8">No users to show!</th>
+                <th class="text-center" colspan="8">No contacts to show!</th>
             </tr>
         <?php
             }

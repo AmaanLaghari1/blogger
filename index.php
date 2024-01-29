@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $error = "Message is required!";
     }
 
-    $sql = "INSERT INTO contacts (email, message) VALUES ('{$email}', '{$msg}')";
+    $sql = "INSERT INTO contact (email, message) VALUES ('{$email}', '{$msg}')";
 
     $result = $con->query($sql);
 

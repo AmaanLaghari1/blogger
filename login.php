@@ -24,8 +24,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         $hashedPwd = md5($password);
 
-        $sql = "SELECT * FROM users WHERE email = '{$email}' and password = '{$hashedPwd}'";
-
+        echo $sql = "SELECT * FROM users WHERE email = '{$email}' and password = '{$hashedPwd}'";
+        // die();
         $result = $con->query($sql);
 
         if($result->num_rows > 0){

@@ -27,6 +27,9 @@
           <a class="nav-link active" aria-current="page" href="./allusers.php">Users</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="./contact.php">Contacts</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="../user/home.php">User Panel</a>
         </li>
         <li class="nav-item">

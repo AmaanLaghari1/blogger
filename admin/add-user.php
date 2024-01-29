@@ -9,7 +9,6 @@ if(!isset($_SESSION['uid'])){
 if($_SESSION['user-role'] != "admin"){
     header("Location: ../login.php");
 }
-$userId = $_GET['id'];
 
 $firstname = $lastname = $email = $password = $phone = $filename = null;
 $error = $success = null;
@@ -36,20 +35,18 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
     $password = cleanData($_POST['pwd']);
     $phone = cleanData($_POST['phone']);
     $filename = cleanData($filename);
+    $role = $_POST['role'];
 
     $hashedPwd = md5($password);
 
-    if(empty($filename)){
-        $sql = "UPDATE users SET firstname = '{$firstname}', lastname = '{$lastname}', email = '{$email}', password = '{$hashedPwd}', phone = '${phone}' WHERE id = {$userId}";
-    }
-    else {
-        $sql = "UPDATE users SET firstname = '{$firstname}', lastname = '{$lastname}', email = '{$email}', password = '{$hashedPwd}', phone = '${phone}', uimage = '{$filename}' WHERE id = {$userId}";
-    }
+    
+        $sql = "INSERT INTO users (firstname, lastname, email, password, phone, uimage, role) VALUES ('{$firstname}', '{$lastname}', '{$email}', '{$hashedPwd}', '{$phone}', '{$filename}', '{$role}')";
+    
 
     $result = $con->query($sql);
 
     if($result){
-        $success = "User Updated Successfully...";
+        $success = "User Added Successfully...";
     }
 }
 
@@ -58,7 +55,7 @@ require_once "./header.php";
 
 <div id="Dashboard" class="container-fluid">
 
-    <h1 class="my-3 text-center">Update User</h1>
+    <h1 class="my-3 text-center">Add New User</h1>
 
     <?php
         if(isset($success)){
@@ -70,47 +67,41 @@ require_once "./header.php";
         }
     ?>
     <div class="col-8 mx-auto">
-        <?php
-            $sql = "SELECT * FROM users WHERE id = {$userId}";
-
-            $result = $con->query($sql);
-
-            if($result->num_rows > 0){
-                while($row = $result->fetch_object()){
-        ?>
-        <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>?id=<?= $userId ?>" method="POST" enctype="multipart/form-data">
+        
+        <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST" enctype="multipart/form-data">
             <div class="form-group my-2">
                 <label for="" class="form-label">First Name</label>
-                <input type="text" class="form-control" name="fname" value="<?= $row->firstname ?>">
+                <input type="text" class="form-control" name="fname">
             </div>
             <div class="form-group my-2">
                 <label for="" class="form-label">Last Name</label>
-                <input type="text" class="form-control" name="lname" value="<?= $row->lastname ?>">
+                <input type="text" class="form-control" name="lname">
             </div>
             <div class="form-group my-2">
                 <label for="" class="form-label">Email</label>
-                <input type="email" class="form-control" name="email" value="<?= $row->email ?>">
+                <input type="email" class="form-control" name="email">
             </div>
             <div class="form-group my-2">
                 <label for="" class="form-label">Password</label>
-                <input type="password" class="form-control" name="pwd" value="<?= $row->password ?>">
+                <input type="password" class="form-control" name="pwd" >
             </div>
             <div class="form-group my-2">
                 <label for="" class="form-label">Phone</label>
-                <input type="number" class="form-control" name="phone" value="<?= $row->phone ?>">
+                <input type="number" class="form-control" name="phone" >
+            </div>
+            <div class="form-group my-2">
+                <label for="">User Role</label>
+                <select name="role" id="">
+                    <option value="primary">Primary</option>
+                    <option value="admin">Admin</option>
+                </select>
             </div>
             <div class="form-group my-2">
                 <label for="" class="form-label">Profile Picture (jpg, png)</label>
                 <input type="file" class="form-control" name="uimage">
             </div>
-            <img src="../user/uploads/profilepics/<?= $row->uimage ?>" alt="" class="thumbnail-img d-block my-2">
             <button class="btn btn-primary">Save</button>
         </form>
-        <?php
-
-                }
-            }
-        ?>
 
         
     </div>
